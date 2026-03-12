@@ -6,9 +6,17 @@
 #include <git2.h>
 #include <iostream>
 
+void PrintUsage() {
+  std::clog << "helix <command> [args]"
+               "\n\thelix init #To init a new projects"
+               "\n\thelix add <git_url> #To add a dependency"
+               "\n\thelix remove <git_url> #To remove a dependency"
+               "\n\thelix build #To build the binary";
+}
+
 int main(int argc, char* argv[]) {
   if (argc < 2) {
-    std::cerr << "Usage: helix <command> [args]\n";
+    PrintUsage();
     return 1;
   }
 
@@ -16,11 +24,19 @@ int main(int argc, char* argv[]) {
 
   if (std::strcmp(argv[1], "init") == 0) {
     Init();
-  } else if (std::strcmp(argv[1], "add") == 0) {
+  } else if ((std::strcmp(argv[1], "add") == 0) ||
+             (std::strcmp(argv[1], "a") == 0)) {
     if (argc < 3) {
-      std::cerr << "Usage: helix add <repo_url>\n";
+      PrintUsage();
     } else {
       AddDeps(argv[2]);
+    }
+  } else if ((std::strcmp(argv[1], "remove") == 0) ||
+             std::strcmp(argv[1], "r") == 0) {
+    if (argc < 3) {
+      PrintUsage();
+    } else {
+      RemoveDeps(argv[2]);
     }
   } else if (std::strcmp(argv[1], "build") == 0) {
     Build();

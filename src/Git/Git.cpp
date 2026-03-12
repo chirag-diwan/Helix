@@ -1,5 +1,8 @@
 #include "./Git.h"
 
+#include <filesystem>
+#include <fstream>
+
 bool Clone(const std::string& repo_url) {
   std::string base = fs::path(repo_url).filename().string();
   if (base.length() >= 4 && base.compare(base.length() - 4, 4, ".git") == 0) {
@@ -47,8 +50,40 @@ void AddDeps(const std::string& github_url) {
   in_file >> j;
   in_file.close();
 
-  j["deps"][base] = {{"url", github_url}, {"path", local_path}};
+  j["deps"][base]["url"]            = github_url;
+  j["deps"][base]["path"]           = local_path;
+  j["deps"][base]["flags"]          = {};
+  j["deps"][base]["link_libraries"] = {};
 
   std::ofstream out_file("helix.json");
   out_file << j.dump(4);
+}
+
+void RemoveDeps(std::string github_url) {
+  if (!fs::exists("helix.json")) {
+    std::cerr << "helix.json not found. Run 'init' first.\n";
+    return;
+  }
+
+  json j;
+
+  std::ifstream file("helix.json");
+
+  if (!file) {
+    std::cerr << "Error opening file";
+    return;
+  }
+
+  file >> j;
+
+  std::string base = fs::path(github_url).filename().string();
+  const auto  path = j["deps"][base]["path"];
+  fs::remove_all(path);
+
+  j["deps"].erase(base);
+  file.close();
+
+  std::ofstream config("helix.json");
+  config << j;
+  config.close();
 }

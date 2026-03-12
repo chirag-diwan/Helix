@@ -12,3 +12,5 @@ namespace fs = std::filesystem;
 bool Clone(const std::string& repo_url);
 
 void AddDeps(const std::string& github_url);
+
+void RemoveDeps(std::string github_url);

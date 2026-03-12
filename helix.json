@@ -1,8 +1,1 @@
-{
-    "build_flags": [],
-    "link_libraries": ["git2"],
-    "deps": {},
-    "lib_export_flags": [],
-    "name": "Helix",
-    "version": "0.0.1"
-}
+{"build_flags":["-O3","-Wall"],"deps":{},"lib_export_flags":[],"link_libraries":["git2"],"name":"Helix","version":"0.0.1"}
