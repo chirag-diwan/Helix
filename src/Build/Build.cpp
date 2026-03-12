@@ -1,8 +1,13 @@
 #include "./Build.h"
 
+#include <cstdlib>
+#include <filesystem>
+#include <iostream>
+
 using json = nlohmann::json;
 
 void Build() {
+  fs::create_directory("build");
   if (!fs::exists("helix.json")) {
     std::cerr << "helix.json not found. Run 'init' first.\n";
     return;
@@ -63,4 +68,9 @@ void Build() {
   }
 
   Cmake.close();
+  auto res = std::system("cmake --build build");
+  if (res == -1) {
+    std::cerr << "Error building file";
+    return;
+  }
 }
