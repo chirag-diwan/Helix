@@ -68,9 +68,16 @@ void Build() {
   }
 
   Cmake.close();
-  auto res = std::system("cmake --build build");
-  if (res == -1) {
-    std::cerr << "Error building file";
+
+  int config_res = std::system("cmake -B build -S .");
+  if (config_res != 0) {
+    std::cerr << "Fatal: CMake configuration failed.\n";
+    return;
+  }
+
+  int build_res = std::system("cmake --build build");
+  if (build_res != 0) {
+    std::cerr << "Fatal: Compilation failed.\n";
     return;
   }
 }

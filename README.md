@@ -1,37 +1,57 @@
 # Helix
-***CXX package manager from hell***
+**The C++ package manager from hell.**
 
 ### The Problem
-Cpp though being a old and versetaile language dosent has a package manager. Installing dependencies and ensuring correct build process is a mess. 
+While C++ is a powerful and versatile language, managing dependencies and standardizing the build process remains notoriously complex. Existing solutions are often bloated or require steep learning curves.
 
 ### The Solution
-A package manager , thats it , thats all was needed for a much nicer experience 
+Helix is a radically simple package manager and build tool. It standardizes project initialization, dependency fetching, and compilation into a seamless, zero-friction workflow.
 
+---
 
-# Installing Helix
-Clone the repo and build the helix binary using cmake .
+## Installation
+Clone the repository and build the binary using CMake:
+
 ```bash
-    
-git clone https://github.com/chirag-diwan/Helix.git
+git clone [https://github.com/chirag-diwan/Helix.git](https://github.com/chirag-diwan/Helix.git)
 cd Helix
 mkdir build && cd build
 cmake ..
-mv Helix ~/.local/bin/helix
-
+cmake --build .
+mv helix ~/.local/bin/helix
 ```
 
-# Using Helix
-Helix offers three commands as of now `helix init` for CXX project init , `helix add <github_url>` for adding dependencies and `helix build` for building the project
+## Usage
+Helix currently operates via three core commands:
 
-# Helix.json config file
-```json
+**helix init** — Initializes a new C++ project structure.
+
+**helix add <github_url>** — Fetches and adds a remote dependency.
+
+**helix build** — Compiles the project based on your configuration.
+
+## Configuration (helix.json)
+Your project is driven by a straightforward JSON configuration file.
+
+```JSON
 {
-    "build_flags": [],          //like -O3 or -Wall
-    "link_libraries": ["git2"], //like X11 , m , pthread etc.
-    "deps": {},                 // the dependencies you install 
-    "lib_export_flags": [],     // If your binary exports some flags then add them here
-    "name": "Helix",            //Project name
-    "version": "0.0.1"          //Project version
+    "name": "Helix",              // Project name
+    "version": "0.0.1",           // Project version
+    "build_flags": ["-O3", "-Wall"], // Compiler flags
+    "link_libraries": ["git2", "m", "pthread"], // System libraries to link
+    "lib_export_flags": [],       // Flags exported by your binary
+    "deps": {}                    // Installed dependencies (managed by Helix)
 }
+```
 
+## Project Structure
+A standard Helix workspace initializes with the following hierarchy:
+
+```bash
+Plaintext
+.
+├── deps/           # Directory for managed dependencies
+├── src/
+│   └── main.cpp    # Application entry point
+└── helix.json      # Project configuration
 ```
