@@ -1,0 +1,13 @@
+HEAD
+refs/heads/01-02-Copy_58398
+refs/heads/ztanner/empty-shell-memory-cache
+refs/heads/ztanner/fix-canary-dist
+.....
+refs/pull/9988/head
+refs/pull/9993/head
+refs/pull/9999/head
+.....
+refs/tags/1.0.0
+refs/tags/2.0.0-beta.7
+refs/tags/v9.5.6-canary.9^{}
+.....

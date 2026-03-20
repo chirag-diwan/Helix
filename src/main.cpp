@@ -1,6 +1,6 @@
 #include "./Build/Build.h"
-#include "./Git/Git.h"
 #include "./Init/Init.h"
+#include "./Network/network.h"
 
 #include <cstring>
 #include <git2.h>
